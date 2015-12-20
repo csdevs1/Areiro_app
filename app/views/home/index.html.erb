@@ -1,0 +1,145 @@
+<% provide(:title, 'Welcome') %>
+<% provide(:description, 'Areiro Home Page') %>
+<% provide(:image, '/assets/logo2-d510e8a7c7a95aa856e2afd15ab576f9ef9936b75311d93bf9c52114028022b6.png') %>
+
+<%= render 'layouts/header' %>
+            <div class="slider">
+                <section>
+                    <ul class="cb-slideshow">
+                        <li><span></span><div><h3>security</h3></div></li>
+                        <li><span></span><div><h3>vigilance</h3></div></li>
+                        <li><span></span><div><h3>control</h3></div></li>
+                        <li><span></span><div><h3>protection</h3></div></li>
+                        <li><span></span><div><h3>surveillance</h3></div></li>
+                        <li><span></span><div><h3>prevention</h3></div></li>
+                    </ul>
+                </section>
+            </div>
+            <div class="content" id="content">
+                <div class="space">
+                    <a href="#content"><span><i class="fa fa-arrow-circle-down"></i></span></a>
+                </div>
+                <section>
+                    <div class="wrapper">    
+                        <!-- TESTING -->
+                        <div class="container-fluid">
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <div class="page-header">
+                                        <h3>PRODUCTS</h3>
+                                        <p>LASTEST PRODUCTS</p>
+                                    </div>
+                                    <div class="carousel slide" id="myCarousel" data-interval="6000">
+                                        <div class="carousel-inner">
+                                            <% num = 0 %>
+                                            <% @products.in_groups_of(4, false) do |product_row| %>
+                                                <% num += 1 %>
+                                                <% if num <= 1 %>
+                                                    <div class="item active">
+                                                        <ul class="thumbnails">                                                    
+                                                            <% for product in product_row %>
+                                                                <% image = Image.where(:product_id => product.id) %>
+                                                                <li class="span3">
+                                                                    <div class="thumbnail">
+                                                                        <%= link_to product_path(product.id) do %><%= image_tag image[0].image.url(:large) %><% end %>
+                                                                    </div>
+                                                                    <div class="caption">
+                                                                        <h4><%= link_to product_path(product.id) do %><%= truncate(product.title, :length => 45) %><% end %></h4>
+                                                                        <p><%= truncate(product.info_item, :length => 100) %></p>
+                                                                        <%= link_to product_path(product.id), :class => "btn btn-mini" do %>&raquo; Read More<% end %>
+                                                                    </div>
+                                                                </li>
+                                                            <% end %>
+                                                        </ul>
+                                                    </div>
+                                                <% else %>
+                                                    <div class="item">
+                                                        <ul class="thumbnails">
+                                                            <% for product in product_row %>
+                                                                <% image = Image.where(:product_id => product.id) %>
+                                                                <li class="span3">
+                                                                    <div class="thumbnail">
+                                                                        <%= link_to product_path(product.id) do %><%= image_tag image[0].image.url(:large) %><% end %>
+                                                                    </div>
+                                                                    <div class="caption">
+                                                                        <h4><%= link_to product_path(product.id) do %><%= truncate(product.title, :length => 45) %><% end %></h4>
+                                                                        <p><%= truncate(product.info_item, :length => 100) %></p>
+                                                                        <%= link_to product_path(product.id), :class => "btn btn-mini" do %>&raquo; Read More<% end %>
+                                                                    </div>
+                                                                </li>
+                                                            <% end %>
+                                                        </ul>
+                                                    </div>
+                                                <% end %>
+                                            <% end %>
+                                        </div>
+                                        <div class="control-box">    
+                                            <a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>
+                                            <a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>
+                                        </div>
+                                    </div><!-- /#myCarousel -->
+                                </div><!-- /.span12 -->    
+                            </div><!-- /.row --> 
+                            
+                            <!-- ANOTHER ONE -->
+                            <div class="row-fluid">
+                                <div class="span12">
+                                    <div class="page-header">
+                                        <h3>VIDEOS</h3>
+                                        <p>SAMPLE VIDEOS</p>
+                                    </div>
+                                    <div class="carousel slide" id="myCarousel-2">
+                                        <div class="carousel-inner">
+                                            <% num = 0 %>
+                                            <% @videos.in_groups_of(4, false) do |video_row| %>
+                                                <% num += 1 %>
+                                                <% if num <= 1 %>
+                                                    <div class="item active">
+                                                        <ul class="thumbnails">
+                                                            <% for video in video_row %>
+                                                                <li class="span3">
+                                                                    <div class="thumbnail">
+                                                                        <%= link_to video_path(video.id) do %><img src="http://img.youtube.com/vi/<%= video.url %>/0.jpg"><% end %>
+                                                                    </div>
+                                                                    <div class="caption">
+                                                                        <h4><%= link_to video_path(video.id) do %><%= truncate(video.title, :length => 45)  %><% end %></h4>
+                                                                        <p><%= truncate(video.description, :length => 100)  %></p>
+                                                                    </div>
+                                                                </li>
+                                                            <% end %>
+                                                        </ul>
+                                                    </div>
+                                                <% else %>
+                                                    <div class="item">
+                                                        <ul class="thumbnails">
+                                                            <% for video in video_row %>
+                                                                <li class="span3">
+                                                                    <div class="thumbnail">
+                                                                        <%= link_to video_path(video.id) do %><img src="http://img.youtube.com/vi/<%= video.url %>/maxresdefault.jpg"><% end %>
+                                                                    </div>
+                                                                    <div class="caption">
+                                                                        <h4><%= link_to video_path(video.id) do %><%= truncate(video.title, :length => 45)  %><% end %></h4>
+                                                                        <p><%= truncate(video.description, :length => 100)  %></p>
+                                                                    </div>
+                                                                </li>
+                                                            <% end %>
+                                                        </ul>
+                                                    </div>
+                                                <% end %>
+                                            <% end %>
+                                        </div>
+                                        <div class="control-box">    
+                                            <a data-slide="prev" href="#myCarousel-2" class="carousel-control left">‹</a>
+                                            <a data-slide="next" href="#myCarousel-2" class="carousel-control right">›</a>
+                                        </div><!-- /.control-box -->   
+                                    </div><!-- /#myCarousel -->
+                                </div><!-- /.span12 -->    
+                            </div>
+                            
+                            
+                        </div><!-- /.container -->
+                        <!-- END TESTING -->
+                    </div>
+                </section>
+            </div>
+<%= render 'layouts/footer' %>

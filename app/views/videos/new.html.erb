@@ -1,0 +1,29 @@
+<%= render 'layouts/headerAdmin' %>
+<div class="add" id="add">
+    <div class="wrapper">
+        <section class="video-new">
+            <div class="image-video"></div>
+            <%= form_for @video do |f| %>
+                <p>
+                    <%= f.text_field :url, :placeholder => "Video ID" %>
+                </p>
+            
+                <p>
+                   <a id="button" href="#">Add Video</a>
+                </p>
+            
+                <p>
+                    <%= f.text_field :title %>
+                </p>
+
+                <p>
+                    <%= f.text_area :description %>
+                </p>
+
+                <p><%= f.submit "Save" %></p>
+            <% end %>
+            
+        </section>
+    </div>
+</div>
+<%= render 'layouts/footer' %>

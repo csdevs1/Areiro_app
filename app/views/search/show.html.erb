@@ -1,0 +1,39 @@
+<%= render 'layouts/header' %>
+<div class="content" id="content-product">
+    <section id="section-search" class="search-class">
+        <div class="wrapper">
+            <div id="pattern" class="pattern">
+                <% if params[:q] != "" %>
+                    <% if @product_val.blank? %>                
+                         <% flash.each do |key, value| %>
+                            <div class="alert"><%= value %></div>
+                        <% end %>
+                    <% else %>
+                        <% @products.in_groups_of(18, false) do |product_row| %>
+                            <ul class="g">
+                                <% for product in product_row %>
+                                    <% image = Image.where(:product_id => product.id) %>
+                                    <li>
+                                        <%= link_to product_path(product) do %><%= image_tag image[0].image.url(:large) %><% end %>
+                                        <%= link_to product_path(product) do %><h4><%= truncate(product.title, :length => 45) %></h4><% end %>
+                                        <p><%= truncate(product.info_item, :length => 100) %></p>
+                                        <p><label><h3>Price: </h3></label>€<%= product.price %></p>
+                                    </li>
+                                <% end %>
+                            </ul>
+                        <% end %>
+                    <% end %>
+                <% else %>
+                    <% flash.each do |key, value| %>
+                        <div class="alert"><%= value %></div>
+                    <% end %>
+                <% end %>
+            </div>
+            <input type='hidden' id='current_page' />
+            <input type='hidden' id='show_per_page' />  
+            <div id='page_navigation'></div>  
+        </div>
+    </section>
+</div>
+
+<%= render 'layouts/footer' %>

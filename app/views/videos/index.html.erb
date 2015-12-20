@@ -1,0 +1,23 @@
+<%= render 'layouts/headerAdmin' %>
+<div class="content" id="content-admin">
+    <section>
+        <div class="wrapper">
+            <div id="pattern" class="pattern">
+                <% @videos.in_groups_of(18, false) do |video_row| %>
+                    <ul class="g">
+                        <% for video in video_row %>
+                            <li>
+                                <img src="http://img.youtube.com/vi/<%= video.url %>/0.jpg">
+                                <h5><%= truncate(video.title, :length => 45) %></h5>
+                                <p><%= link_to "REMOVE", [:delete, video] %></p>
+                            </li>
+                        <% end %>
+                    </ul>
+                <% end %>
+            </div>
+            <input type='hidden' id='current_page' />
+            <input type='hidden' id='show_per_page' />  
+            <div id='page_navigation'></div>  
+        </div>
+    </section>
+</div>

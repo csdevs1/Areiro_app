@@ -1,0 +1,39 @@
+<% provide(:title, @product.title) %>
+<% provide(:description, @product.info_item) %>
+<% provide(:image, @images[0].image.url(:large)) %>
+
+<%= render 'layouts/header' %>
+<div class="content" id="section-product">
+                <div id="title" class="wrapper">
+                    <label><h1><%= raw @product.title %></h1></label>
+                </div>
+                <div class="wrapper-product">
+                    <div id="wrapper-item">
+                        <div id="img">                            
+                            <div class="jcarousel-wrapper">
+                                <!--<img src="http://placehold.it/360x240" alt=""> -->
+                                <div id="owl-demo" class="owl-carousel owl-theme">
+                                    <% @images.each do |image| %>
+                                        <div class="item"><%= image_tag image.image.url(:large) %></div>
+                                    <% end %>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="info">
+                            <div id="price"><label><h2>Price: €<%= @product.price %></h2></label></div>
+                            <div id="item-description">
+                                ITEM DESCRIPTION
+                                <div id="item-line"></div>
+                                <div id="item-info">
+                                    <h5><%= raw @product.info_item %></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="description">
+                        <%= raw @product.description %>  
+                    </div>
+                </div>
+            </div>
+<%= render 'layouts/footer' %>

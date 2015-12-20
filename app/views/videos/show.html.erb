@@ -1,0 +1,12 @@
+<%= render 'layouts/header' %>
+<div class="content" id="content-video">
+    <section>
+        <div class="wrapper">
+            <span class="video-title"><h1><%= @video.title %></h1></span>
+            <div id="video-youtube">
+                <iframe src="https://www.youtube.com/embed/<%= @video.url %>?rel=0&vq=hd1080" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+</div>
+<%= render 'layouts/footer' %>

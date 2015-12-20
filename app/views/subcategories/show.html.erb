@@ -1,0 +1,33 @@
+<% provide(:title, @subcategory.subcategory_name) %>
+<% provide(:description, @subcategory.subcategory_name) %>
+<%= render 'layouts/header' %>
+
+<section id="banner">
+    <div class="wrapper"><h2><%= @subcategory.subcategory_name %></h2></div>
+</section>
+<div class="content" id="content-product">
+    <section>
+        <div class="wrapper">
+            <div id="pattern" class="pattern">
+                <% @products.in_groups_of(4, false) do |product_row| %>
+                    <ul class="g">
+                        <% for product in product_row %>
+                            <% image = Image.where(:product_id => product.id) %>
+                            <li>
+                                <%= link_to product_path(product) do %><%= image_tag image[0].image.url %><% end %>
+                                <%= link_to product_path(product) do %><h4><%= truncate(product.title, :length => 45) %></h4><% end %>
+                                <p><%= truncate(product.info_item, :length => 100) %></p>
+                                <p><label><h3>Price: </h3></label>€<%= product.price %></p>
+                            </li>
+                        <% end %>
+                    </ul>
+                <% end %>
+            </div>
+            <input type='hidden' id='current_page' />
+            <input type='hidden' id='show_per_page' />  
+            <div id='page_navigation'></div>  
+        </div>
+    </section>
+</div>
+
+<%= render 'layouts/footer' %>

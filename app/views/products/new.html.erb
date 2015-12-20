@@ -1,0 +1,46 @@
+<%= render 'layouts/headerAdmin' %>
+<% provide(:url, "https://tinymce.cachefly.net/4.2/tinymce.min.js") %>
+<div class="add" id="add">
+    <div class="wrapper">
+        <section>
+            <%= form_for @product, :html => {:multipart => true} do |f| %>
+                
+                <%= f.collection_select :category_id, Category.order(:id), :id, :category_name, include_blank: true %>
+            
+                <%= f.grouped_collection_select :subcategory_id, Category.order(:id), :subcategories, :category_name, :id, :subcategory_name, include_blank: true %>
+            
+                <%= f.text_field :title, :placeholder => "Title", class: 'title' %>
+            
+                <%= f.text_field :info_item, :placeholder => "Item short description", class: 'info-product' %>
+
+                <%= f.text_field :price, :placeholder => "Product Price", class: 'item-price' %>
+                <div class="editor" id="editor">
+                    <%= f.text_area :description, class: 'editor', id: 'editor' %>
+                </div>
+
+                <%= f.fields_for :images do |builder| %>
+                    <% if builder.object.new_record? %>
+                        <p>
+                            <%= builder.label :image, "Image File" %>
+                            <%= builder.file_field :image %>
+                        </p>
+                    <% end %>
+                <% end %>
+
+                <p><%= f.submit "Submit", class: 'submit-btn' %></p>
+            <% end %>
+            
+        </section>
+    </div>
+</div>
+<script>
+    tinymce.init({   
+        selector:'textarea',
+        plugins: [
+            "link preview media"
+        ],
+        toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+        toolbar2: "print preview media | forecolor backcolor emoticons",
+    });
+</script>
+<%= render 'layouts/footer' %>
